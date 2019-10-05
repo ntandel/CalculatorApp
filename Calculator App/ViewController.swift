@@ -24,6 +24,7 @@ class ViewController: UIViewController {
     var previousNumber: Double = 0
     var operation = 0
     var isPerformingOperation = false
+    var isDecimal = false;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,51 +67,44 @@ class ViewController: UIViewController {
         
         /* operation(its tag) ÷(11) ×(12) -(13) +(14) =(15) .(19) %(18)*/
         
-        if tag == 11 // division
+        if ((tag == 11 || tag == 12 || tag == 13 || tag == 14 || tag == 19 || tag == 18) && (resultlable.text != "+" && resultlable.text != "-" && resultlable.text != "*" && resultlable.text != "/" && resultlable.text != "%")) // division
         {
             isPerformingOperation = true
             previousNumber = Double(resultlable.text!)!
-            resultlable.text = "÷"
             operation = tag
             
-        }
-        else if tag == 12 //Multiplication
-        {
-            isPerformingOperation = true
-            previousNumber = Double(resultlable.text!)!
-            resultlable.text = "×"
-            operation = tag
-            
-        }
-        else if tag == 13 // Subtraction
-        {
-            isPerformingOperation = true
-            previousNumber = Double(resultlable.text!)!
-            resultlable.text = "-"
-            operation = tag
-            
-        }
-        else if tag == 14 // addition
-        {
-            isPerformingOperation = true
-            previousNumber = Double(resultlable.text!)!
-            resultlable.text = "+"
-            operation = tag
-            
-        }
-        else if tag == 19 // decimal
-        {
-            if(!(resultlable.text?.contains("."))!)
-            {
-                resultlable.text = resultlable.text! + "."
-                currentNumber = Double(resultlable.text!)!
+            if tag == 11{ // divide
+                
+                resultlable.text = "÷"
 
+            }else if tag == 12{ // multiplication
+                
+                resultlable.text = "x"
+
+            }else if tag == 13{ // subtraction
+                
+                resultlable.text = "-"
+
+            }else if tag == 14{ // additions
+                
+                resultlable.text = "+"
+
+            }else if tag == 19 // decimal
+            {
+                if(!(resultlable.text?.contains("."))!)
+                {
+                    resultlable.text = resultlable.text! + "."
+                    currentNumber = Double(resultlable.text!)!
+                    
+                }
             }
-        }
-        else if tag == 18 // percentage
-        {
-             isPerformingOperation = true
-            resultlable.text = String(Double(resultlable.text!)!/100)
+            else if tag == 18 // percentage
+            {
+                isPerformingOperation = true
+                resultlable.text = String(Double(resultlable.text!)!/100)
+                isDecimal = true;
+                
+            }
             
         }
             
@@ -122,19 +116,47 @@ class ViewController: UIViewController {
             
             if operation == 11 // 11 is a tag for division
             {
-                resultlable.text = String(previousNumber / currentNumber)
-            }
-            else if operation == 12 // 12 is a tag for multiplication
+                if(isDecimal == true){
+                    resultlable.text = String(previousNumber / currentNumber)
+                }else{
+                    
+                    resultlable.text = String(previousNumber / currentNumber)
+                    let number = resultlable.text!.dropLast(2)
+                    resultlable.text = String(number)
+                }
+            }else if operation == 12 // 12 is a tag for multiplication
             {
-                resultlable.text = String(previousNumber * currentNumber)
+                if(isDecimal == true){
+                    resultlable.text = String(previousNumber * currentNumber)
+                }else{
+                    
+                    resultlable.text = String(previousNumber * currentNumber)
+                    let number = resultlable.text!.dropLast(2)
+                    resultlable.text = String(number)
+                }
             }
             else if operation == 13 // 13 is a tag for subtraction
             {
+                if(isDecimal == true){
                 resultlable.text = String(previousNumber - currentNumber)
+            }else{
+                
+                resultlable.text = String(previousNumber - currentNumber)
+                let number = resultlable.text!.dropLast(2)
+                resultlable.text = String(number)
+                }
             }
             else if operation == 14 // 14 is the tag for addition
             {
+                if(isDecimal == true){
                 resultlable.text = String(previousNumber + currentNumber)
+                }else{
+                
+                resultlable.text = String(previousNumber + currentNumber)
+                let number = resultlable.text!.dropLast(2)
+                resultlable.text = String(number)
+                }
+                
             }
             
         }
