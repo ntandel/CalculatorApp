@@ -67,26 +67,29 @@ class ViewController: UIViewController {
         
         /* operation(its tag) ÷(11) ×(12) -(13) +(14) =(15) .(19) %(18)*/
         
-        if ((tag == 11 || tag == 12 || tag == 13 || tag == 14 || tag == 19 || tag == 18) && (resultlable.text != "+" && resultlable.text != "-" && resultlable.text != "*" && resultlable.text != "/" && resultlable.text != "%")) // division
+        if ((tag == 11 || tag == 12 || tag == 13 || tag == 14 || tag == 19 || tag == 18) && (resultlable.text != "+" && resultlable.text != "-" && resultlable.text != "x" && resultlable.text != "÷" && resultlable.text != "%"))
         {
             isPerformingOperation = true
             previousNumber = Double(resultlable.text!)!
             operation = tag
             
-            if tag == 11{ // divide
+            if tag == 11{   // division
                 
                 resultlable.text = "÷"
+               
 
             }else if tag == 12{ // multiplication
                 
                 resultlable.text = "x"
+              
 
             }else if tag == 13{ // subtraction
                 
                 resultlable.text = "-"
+                
 
             }else if tag == 14{ // additions
-                
+            
                 resultlable.text = "+"
 
             }else if tag == 19 // decimal
@@ -139,11 +142,13 @@ class ViewController: UIViewController {
             {
                 if(isDecimal == true){
                 resultlable.text = String(previousNumber - currentNumber)
+                    
             }else{
                 
                 resultlable.text = String(previousNumber - currentNumber)
                 let number = resultlable.text!.dropLast(2)
                 resultlable.text = String(number)
+                    
                 }
             }
             else if operation == 14 // 14 is the tag for addition
@@ -162,6 +167,7 @@ class ViewController: UIViewController {
         }
         
 }
+   
     // when backspace is pressed this function is called.
     @IBAction func backspaceButton(_ sender: Any)
     {
